@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: hello
+        env: canary
     spec:
       containers:
       - name: hello-app

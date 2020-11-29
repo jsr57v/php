@@ -1,12 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php
+  name: php-production
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: hello
+      env: production
   template:
     metadata:
       labels:

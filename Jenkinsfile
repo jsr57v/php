@@ -7,8 +7,8 @@ pipeline {
 
   environment {
     PROJECT = "robotic-tract-296012"
-    APP_NAME = "gceme"
-    FE_SVC_NAME = "${APP_NAME}-frontend"
+    APP_NAME = "hello"
+    FE_SVC_NAME = "${APP_NAME}"
     CLUSTER = "jenkins-cd"
     CLUSTER_ZONE = "us-east1-d"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${params.version}"
@@ -30,8 +30,8 @@ spec:
   # Use service account that can deploy to all namespaces
   serviceAccountName: cd-jenkins
   containers:
-  - name: golang
-    image: golang:1.10
+  - name: php
+    image: php:7.2-apache
     command:
     - cat
     tty: true
@@ -49,17 +49,7 @@ spec:
 }
   }
   stages {
-    stage('Test') {
-      steps {
-        container('golang') {
-          sh """
-            ln -s `pwd` /go/src/sample-app
-            cd /go/src/sample-app
-            go test
-          """
-        }
-      }
-    }
+    
     stage('Build and push image with Container Builder') {
       steps {
         container('gcloud') {
